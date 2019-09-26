@@ -1,12 +1,25 @@
 const User = require('../models/user')
+const UserDetail = require('../models/user_detail')
 
 exports.store = async (req,res) => {
     try {
-    const user = await  User.create(req.body)
-    return res.stutus(200).json(user)
+    const user = new User()
+    user.name = req.body.name
+    user.last_name = req.body.last_name
+    user.password = req.body.password
+    user.mail= req.body.mail
+    user.active = req.body.active
+    await user.save()
+    const user_detail = new UserDetail()
+    user_detail.user_id = user._id
+    user_detail.address = req.body.address
+    user_detail.phone = req.body.phone
+    user_detail.rfc = req.body.rfc
+   await user_detail.save()
+    return res.status(200)
 
     } catch (error) {
-     return res.status(500).json(error)   
+     return res.status(500).json(error.errors)
     }
 }
 
