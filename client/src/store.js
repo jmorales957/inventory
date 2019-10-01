@@ -1,45 +1,96 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    users: []
-  },
-  getters: {
-    allUsers: state => state.users
-  },
-  mutations: {
-    setUser(state, users)  {
-      state.users = users
-    },
-    removeUser: (state,id)=> {
-      state.users = state.users.filter(user => user._id !== id)
-      console.log(id)
-    }
-  },
-  actions: {
-    async ListUsers({commit}) {
-      const response = await fetch('http://localhost:3000/api/v1/users', {
-                    headers: {
-                        'Content-Type': 'applicationn/json'
-                    },
+    state: {
+        todos: [],
+        userEdit: {}
 
-                })
-                const data = await response.json()
-                commit('setUser',data)
     },
-    async deleteUser({commit}, id) {
-      const response = await fetch(`http://localhost:3000/api/v1/users/${id}`,{
-        headers: {
-          'Content-Type': 'applicationn/json'
+
+    getters: {
+        allTodos: state => state.todos,
+        editUSer: state => state.userEdit
+    },
+
+    actions: {
+        async fetchTodos({commit}) {
+            const response = await fetch('http://localhost:3000/api/v1/users', {}
+            );
+
+            const data = await response.json()
+
+            commit('setTodos', data);
+            /*const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+                }
+            );
+
+            const data = await response.json()
+
+            commit('setTodos', data);*/
         },
-        method: 'delete'
-      })
-      const data = await response.json()
-      console.log(data)
-      commit('removeUser',id)
+        async addTodo({commit}, title) {
+            const response = await axios.post(
+                'https://jsonplaceholder.typicode.com/todos',
+                {title, completed: false}
+            );
+
+            commit('newTodo', response.data);
+        },
+        async deleteTodo({commit}, id) {
+            const paramId = id
+            await axios.delete(`http://localhost:3000/api/v1/users/${id}`);
+            //await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+
+
+            commit('removeTodo', paramId);
+        },
+        async filterTodos({commit}, e) {
+            // Get selected number
+            const limit = parseInt(
+                e.target.options[e.target.options.selectedIndex].innerText
+            );
+
+            const response = await axios.get(
+                `https://jsonplaceholder.typicode.com/todos?_limit=${limit}`
+            );
+
+            commit('setTodos', response.data);
+        },
+        async updateTodo({commit}, updTodo) {
+            const response = await axios.put(
+                `https://jsonplaceholder.typicode.com/todos/${updTodo.id}`,
+                updTodo
+            );
+
+            console.log(response.data);
+
+            commit('updateTodo', response.data);
+        },
+        editUser({commit},user) {
+            commit('settUserEdit',user)
+        }
+    },
+
+    mutations: {
+        setTodos: (state, todos) => (state.todos = todos),
+        newTodo: (state, todo) => state.todos.unshift(todo),
+        removeTodo: (state, id) => {
+            state.todos = state.todos.filter((todo) => {
+                return todo._id !== id
+            })
+        },
+        updateTodo: (state, updTodo) => {
+            const index = state.todos.findIndex(todo => todo.id === updTodo.id);
+            if (index !== -1) {
+                state.todos.splice(index, 1, updTodo);
+            }
+        },
+        settUserEdit: (state,user) => {
+                state.userEdit = user
+        }
     }
-  }
 })

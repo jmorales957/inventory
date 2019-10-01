@@ -11,11 +11,11 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="first_name" type="text" class="validate">
+                                <input id="first_name" type="text" class="validate" v-model="editUSer.name">
                                 <label for="first_name">Nombre</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="last_name" type="text" class="validate" >
+                                <input id="last_name" type="text" class="validate">
                                 <label for="last_name">Apellido</label>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                                 <label for="password">Password</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="email" type="email" class="validate" >
+                                <input id="email" type="email" class="validate">
                                 <label for="email">Email</label>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                 </label>
                             </div>
                             <div class="input-field col s6">
-                                <select >
+                                <select>
                                     <option value="" disabled selected>Selecciona una opcion</option>
                                     <option value="1">Option 1</option>
                                     <option value="2">Option 2</option>
@@ -51,7 +51,7 @@
 
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="address" type="text" class="validate" >
+                                <input id="address" type="text" class="validate">
                                 <label for="address">Domicilio</label>
                             </div>
                             <div class="input-field col s6">
@@ -83,14 +83,16 @@
 </template>
 
 <script>
-    import EventBus from '../../bus'
+    import {mapGetters,} from 'vuex'
     export default {
         name: "ModalEditComponent",
-        created () {
-
-            EventBus.$on('add-comment', (item) => {
-                console.log(item)
-            });
+        data() {
+            return {
+                name: ''
+            }
+        },
+        computed: {
+            ...mapGetters(['editUSer'])
         }
     }
 </script>
