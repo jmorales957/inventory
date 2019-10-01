@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "datatables.net": "^1.10.19",
+    "jquery": "^3.4.1",
     "vue": "^2.6.10",
     "vue-materialize-datatable": "^0.7.7",
     "vue-router": "^3.0.3",

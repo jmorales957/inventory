@@ -1,41 +1,31 @@
 <template>
     <div>
         <modal-edit-component></modal-edit-component>
-        <datatable
-                :title="title"
-                :columns="columns"
-                :rows="users"
-                :locale="locale"
-
+        <data-table
+            :locale="locale"
+            :columns="columns"
+            :rows="allUsers"
+            :title="title"
         >
-            <th slot="thead-tr">
-                Acciones
-            </th>
-            <template slot="tbody-tr" scope="props">
-                <td>
-                    <button
-                            class="btn yellow darken-2 waves-effect waves-light btn-small"
-                            @click="edit(props.row)"
-                            data-target="modal1"
-                    >
-                        <i class="material-icons white-text">edit</i>
-                    </button>
-                    <button
-                            class="btn red darken-2 waves-effect waves-light btn-small"
+        <template slot="tbody-tr" scope="props">
+        <td>
+            <button class="btn red darken-2 waves-effect waves-light compact-btn"
+                    @click="deleteUser(props.row._id)">
+                <i class="material-icons white-text">delete</i>
+            </button>
+        </td>
+    </template>
 
-                    >
-                        <i class="material-icons white-text">delete</i>
-                    </button>
-                </td>
-            </template>
-        </datatable>
+        </data-table>
     </div>
 </template>
 
 <script>
     import DataTable from 'vue-materialize-datatable'
+    
     import ModalEditComponent from "./ModalEditComponent"
     import EventBus from '../../bus'
+    import {mapActions , mapGetters} from 'vuex'
 
     export default {
         data() {
@@ -52,13 +42,12 @@
                         field: 'name'
                     }
                 ],
-                users: [],
                 aux: null
             }
         },
         components: {
-            "datatable": DataTable,
-            ModalEditComponent
+            ModalEditComponent,
+            DataTable
         },
         created() {
             const self = this
@@ -72,26 +61,19 @@
             });
         },
         mounted() {
-            this.list()
-
+            this.ListUsers()
+             
 
         },
         methods: {
-            async list() {
-
-                const response = await fetch('http://localhost:3000/api/v1/users', {
-                    headers: {
-                        'Content-Type': 'applicationn/json'
-                    },
-
-                })
-                const data = await response.json()
-                this.users = data
-            },
+         ...mapActions(['ListUsers','deleteUser']),
             edit(user) {
                 this.aux.open()
                 EventBus.$emit('add-comment', user)
             }
+        },
+        computed: {
+            ...mapGetters(['allUsers'])
         },
     }
 </script>

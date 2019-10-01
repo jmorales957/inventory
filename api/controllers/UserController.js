@@ -15,7 +15,7 @@ exports.store = async (req,res) => {
     user_detail.address = req.body.address
     user_detail.phone = req.body.phone
     user_detail.rfc = req.body.rfc
-   await user_detail.save()
+    await user_detail.save()
     return res.status(200)
 
     } catch (error) {
@@ -30,4 +30,16 @@ exports.index = async(req,res) => {
     } catch (error) {
         
     }
+}
+
+exports.delete = async (req,res) => {
+    try {
+        const id = req.params.id
+        await User.findOneAndDelete(id)
+        return res.status(200)
+    } catch (error) {
+        console.log(error)
+    }
+   
+    
 }

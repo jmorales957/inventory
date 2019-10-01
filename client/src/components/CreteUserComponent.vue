@@ -87,10 +87,11 @@
             }
 
         },
-        created() {
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems,);
+        mounted() {
+            document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            //var instances =
+             //M.FormSelect.init(elems);
             });
         },
         methods: {
@@ -113,9 +114,11 @@
 
                     })
                 })
-
+                const data = await response.json()
+                console.log(data)
                 this.$router.push({name: 'ListUsers'})
-            }
+                
+             }
         },
     }
 </script>
