@@ -61,14 +61,13 @@ export default new Vuex.Store({
             commit('setTodos', response.data);
         },
         async updateTodo({commit}, updTodo) {
+          console.log(updTodo)
             const response = await axios.put(
-                `https://jsonplaceholder.typicode.com/todos/${updTodo.id}`,
-                updTodo
-            );
+                `http://localhost:3000/api/v1/users/${updTodo._id}`,updTodo);
 
             console.log(response.data);
 
-            commit('updateTodo', response.data);
+           // commit('updateTodo', response.data);
         },
         editUser({commit},user) {
             commit('settUserEdit',user)

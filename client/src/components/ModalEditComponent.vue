@@ -8,24 +8,24 @@
                 <h4>Editar</h4>
 
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" @submit.prevent="updateTodo(editUSer)">
                         <div class="row">
                             <div class="input-field col s6">
                                 <input id="first_name" type="text" class="validate" v-model="editUSer.name">
                                 <label for="first_name">Nombre</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="last_name" type="text" class="validate">
+                                <input id="last_name" type="text" class="validate" v-model="editUSer.last_name">
                                 <label for="last_name">Apellido</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="password" type="password" class="validate">
+                                <input id="password" type="password" class="validate" v-model="editUSer.password">
                                 <label for="password">Password</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="email" type="email" class="validate">
+                                <input id="email" type="email" class="validate" v-model="editUSer.mail">
                                 <label for="email">Email</label>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                             <div class="switch input-field col  s6">
                                 <label>
                                     Off
-                                    <input type="checkbox">
+                                    <input type="checkbox" v-model="editUSer.active">
                                     <span class="lever"></span>
                                     On
                                 </label>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import {mapGetters,} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     export default {
         name: "ModalEditComponent",
         data() {
@@ -93,7 +93,10 @@
         },
         computed: {
             ...mapGetters(['editUSer'])
-        }
+        },
+        methods: {
+            ...mapActions(['updateTodo'])
+        },
     }
 </script>
 

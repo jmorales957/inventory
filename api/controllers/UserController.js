@@ -50,3 +50,19 @@ exports.delete = async (req, res) => {
 
 
 }
+
+exports.update = async (req, res) => {
+    try {
+        const id = req.params.id
+        await User.findOneAndUpdate(id,req.body)
+        return res.status(200).json({
+                message: 'User updated',
+                success: true
+            }
+        )
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
