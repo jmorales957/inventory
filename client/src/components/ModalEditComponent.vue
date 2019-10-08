@@ -51,18 +51,18 @@
 
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="address" type="text" class="validate">
+                                <input id="address" type="text" name="address" class="validate" v-model="editUSer.address">
                                 <label for="address">Domicilio</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="phone" type="text" class="validate">
+                                <input id="phone" type="text"  name="phone" class="validate" v-model="editUSer.phone">
                                 <label for="phone">Telefono</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="rfc" type="text" class="validate">
+                                <input id="rfc" type="text" name="rfc" class="validate" v-model="editUSer.rfc">
                                 <label for="rfc">rfc</label>
                             </div>
                         </div>
@@ -88,7 +88,6 @@
         name: "ModalEditComponent",
         data() {
             return {
-                name: ''
             }
         },
         computed: {

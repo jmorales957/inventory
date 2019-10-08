@@ -1,16 +1,10 @@
 <template>
 <div>
-     <nav>
-    <div class="nav-wrapper blue">
-      <a href="#" class="brand-logo">Hellojp</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/about">About</router-link></li>
-        <li><router-link to="/users/create">Add</router-link></li>
-        <li><router-link to="/users/list">List</router-link></li>
-      </ul>
-    </div>
-  </nav>
+    <nav class="#d50000 blue accent-4">
+        <div class="nav-wrapper">
+            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
 </div>
  
 </template>

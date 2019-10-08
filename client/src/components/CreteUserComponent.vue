@@ -1,7 +1,6 @@
 <template>
-    <div>
         <div class="row">
-            <form @submit.prevent="create"  class="col s12">
+            <form @submit.prevent="create"  class="col s12 offset-m3 m8" >
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="first_name" type="text" class="validate" v-model="name">
@@ -25,10 +24,10 @@
                 <div class="row">
                     <div class="switch input-field col  s6">
                         <label>
-                            Off
+                            Activo
                             <input type="checkbox" v-model="active">
                             <span class="lever"></span>
-                            On
+                            Inactivo
                         </label>
                     </div>
                     <div class="input-field col s6">
@@ -44,7 +43,7 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="address" type="text" class="validate" v-model="adress">
+                        <input id="address" type="text" class="validate" v-model="address">
                         <label for="address">Domicilio</label>
                     </div>
                     <div class="input-field col s6">
@@ -66,7 +65,7 @@
                 </div>
             </form>
         </div>
-    </div>
+
 </template>
 
 <script>
@@ -79,7 +78,7 @@
                 mail: '',
                 active: false,
                 user_type: null,
-                adress: '',
+                address: '',
                 phone: '',
                 rfc: '',
 
@@ -107,7 +106,7 @@
                         mail: this.mail,
                         active: this.active,
                         user_type: this.user_type,
-                        addres: this.addres,
+                        address: this.address,
                         phone: this.phone,
                         rfc: this.rfc
 
@@ -115,7 +114,7 @@
                 })
 
                 this.$router.push({name: 'ListUsers'})
-                
+
              }
         },
     }

@@ -1,32 +1,36 @@
 <template>
-    <div>
-        <modal-edit-component ></modal-edit-component>
+    <div class="row">
 
-        <data-table
-                :title="title"
-                :columns="columns"
-                :rows="allTodos"
-                :locale="locale"
 
-        >
-            <th slot="thead-tr">
-                Actions
-            </th>
-            <template slot="tbody-tr" scope="props">
-                <td>
-                    <button class="btn yellow darken-2 waves-effect waves-light compact-btn"
-                            @click="edit(props.row)">
-                        <i class="material-icons white-text">edit</i>
-                    </button>
-                    &nbsp;
-                    <button class="btn red darken-2 waves-effect waves-light compact-btn"
-                            @click="deleteTodo(props.row._id)">
-                        <i class="material-icons white-text">delete</i>
-                    </button>
-                </td>
-            </template>
+        <div class="col s12 offset-m3 m9">
+            <modal-edit-component></modal-edit-component>
 
-        </data-table>
+            <data-table
+                    :title="title"
+                    :columns="columns"
+                    :rows="allTodos"
+                    :locale="locale"
+
+            >
+                <th slot="thead-tr">
+                    Actions
+                </th>
+                <template slot="tbody-tr" scope="props">
+                    <td>
+                        <button class="btn yellow darken-2 waves-effect waves-light compact-btn"
+                                @click="edit(props.row)">
+                            <i class="material-icons white-text">edit</i>
+                        </button>
+                        &nbsp;
+                        <button class="btn red darken-2 waves-effect waves-light compact-btn"
+                                @click="deleteTodo(props.row._id)">
+                            <i class="material-icons white-text">delete</i>
+                        </button>
+                    </td>
+                </template>
+
+            </data-table>
+        </div>
     </div>
 </template>
 
@@ -57,7 +61,7 @@
                             if (row.active == true) {
                                 return `<span class="new badge green" data-badge-caption="">Activo</span>`
                             } else {
-                                return  `<span class="new badge red" data-badge-caption="">Inactivo</span>`
+                                return `<span class="new badge red" data-badge-caption="">Inactivo</span>`
                             }
                         },
                         numeric: false,
@@ -82,10 +86,10 @@
             this.fetchTodos();
             const self = this
 
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 var elem = document.getElementById('modal1');
-                var instance = M.Modal.init(elem,{
-                    onOpenEnd: ()=> {
+                var instance = M.Modal.init(elem, {
+                    onOpenEnd: () => {
                         M.updateTextFields();
                     }
                 });
@@ -93,19 +97,16 @@
             });
         },
         methods: {
-            ...mapActions(["fetchTodos", "deleteTodo", "updateTodo",'editUser']),
+            ...mapActions(["fetchTodos", "deleteTodo", "updateTodo", 'editUser']),
             edit(user) {
                 this.editUser(user)
                 this.aux.open()
 
 
-
-
-
             }
         },
         computed: {
-            ...mapGetters(['allTodos','editUSer'])
+            ...mapGetters(['allTodos', 'editUSer'])
         },
     }
 </script>

@@ -7,13 +7,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         todos: [],
-        userEdit: {}
-
+        userEdit: {},
     },
 
     getters: {
         allTodos: state => state.todos,
-        editUSer: state => state.userEdit
+        editUSer: state => state.userEdit,
     },
 
     actions: {
@@ -24,13 +23,6 @@ export default new Vuex.Store({
             const data = await response.json()
 
             commit('setTodos', data);
-            /*const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
-                }
-            );
-
-            const data = await response.json()
-
-            commit('setTodos', data);*/
         },
         async addTodo({commit}, title) {
             const response = await axios.post(
@@ -43,9 +35,6 @@ export default new Vuex.Store({
         async deleteTodo({commit}, id) {
             const paramId = id
             await axios.delete(`http://localhost:3000/api/v1/users/${id}`);
-            //await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
-
-
             commit('removeTodo', paramId);
         },
         async filterTodos({commit}, e) {
@@ -60,17 +49,24 @@ export default new Vuex.Store({
 
             commit('setTodos', response.data);
         },
-        async updateTodo({commit}, updTodo) {
-          console.log(updTodo)
+        async updateTodo({commit}, user) {
+            console.log(user)
             const response = await axios.put(
-                `http://localhost:3000/api/v1/users/${updTodo._id}`,updTodo);
+                `http://localhost:3000/api/v1/users/${user._id}`, user);
 
-            console.log(response.data);
+            console.log(response.data.data);
 
-           // commit('updateTodo', response.data);
+            commit('updateTodo', response.data.data);
         },
-        editUser({commit},user) {
-            commit('settUserEdit',user)
+        async editUser({commit}, user) {
+            const response = await fetch(`http://localhost:3000/api/v1/users/${user._id}`)
+            var data = await response.json()
+            const full = {
+
+                ...data.data,
+                ...user
+            }
+            commit('settUserEdit', full)
         }
     },
 
@@ -82,14 +78,14 @@ export default new Vuex.Store({
                 return todo._id !== id
             })
         },
-        updateTodo: (state, updTodo) => {
-            const index = state.todos.findIndex(todo => todo.id === updTodo.id);
+        updateTodo: (state, user) => {
+            const index = state.todos.findIndex(u=> u._id === user._id);
             if (index !== -1) {
-                state.todos.splice(index, 1, updTodo);
+                state.todos.splice(index, 1, user);
             }
         },
-        settUserEdit: (state,user) => {
-                state.userEdit = user
+        settUserEdit: (state, user) => {
+            state.userEdit = user
         }
     }
 })
