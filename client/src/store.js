@@ -66,7 +66,7 @@ export default new Vuex.Store({
                 ...data.data,
                 ...user
             }
-            commit('settUserEdit', full)
+            commit('settUgit aserEdit', full)
         }
     },
 

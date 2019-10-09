@@ -54,10 +54,40 @@ exports.delete = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const id = req.params.id
-        await User.findOneAndUpdate(id,req.body)
+        const user = await User.findById(id)
+        user.name = req.body.name
+        user.last_name = req.body.last_name
+        user.password = req.body.password
+        user.mail= req.body.mail
+        user.active = req.body.active
+        user.save()
+        const userD = await UserDetail.findOne({user_id: id})
+        userD.address = req.body.address
+        userD.phone = req.body.phone
+        userD.rfc = req.body.rfc
+        userD.save()
+
         return res.status(200).json({
                 message: 'User updated',
-                success: true
+                success: true,
+                data: user
+            }
+        )
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
+
+exports.findDetail = async (req, res) => {
+    try {
+        const id = req.params.id
+        const data = await UserDetail.findOne({user_id: id})
+        return res.status(200).json({
+                message: 'User detail',
+                success: true,
+                data: data
             }
         )
     } catch (error) {
