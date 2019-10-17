@@ -18,11 +18,27 @@ exports.store = async (req, res) => {
         await user_detail.save()
         return res.status(200).json({
             message: 'User added',
-            success: true
+            data: user
         })
 
     } catch (error) {
-        return res.status(500).json(error.errors)
+        switch (error.name) {
+            case 'ValidationError':
+               return res.status(400).json({
+                    message: error.message,
+                    errors: error.errors,
+
+                })
+            break;
+            default:
+                return res.status(500).json({
+                    message: error.message,
+                    errors: 'Error del servidor '
+
+                })
+
+        }
+
     }
 }
 
@@ -38,6 +54,9 @@ exports.index = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         const id = req.params.id
+        const user = await User.findById(id)
+        console.log(user)
+        await UserDetail.findOneAndDelete({user_id: id})
         await User.findOneAndDelete(id)
         return res.status(200).json({
                 message: 'User removed',

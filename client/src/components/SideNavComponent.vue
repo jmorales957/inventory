@@ -31,6 +31,24 @@
                     </div>
                 </li>
             </ul>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <ul class="collapsible">
+                <li>
+                    <a class="collapsible-header"><i class="material-icons">add</i>Productos</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <router-link to="/products/list" >Listado</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/products/create">Agregar</router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </ul>
     </div>
 </template>

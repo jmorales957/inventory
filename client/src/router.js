@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import CreteUserComponent from './components/CreteUserComponent.vue'
 import ListUsers from './components/ListUsersComponent.vue'
+import ListProduct from './components/products/ListProductComponent'
+import CreateProduct from './components/products/CreateProductComponent'
 
 
 Vue.use(Router)
@@ -28,6 +30,16 @@ export default new Router({
       path: '/users/create',
       name: 'CreateUser',
       component: CreteUserComponent
+    },
+    {
+      path: '/products/list',
+      name: 'ListProducts',
+      component: ListProduct
+    },
+    {
+      path: '/products/create',
+      name: 'CreateProduct',
+      component: CreateProduct
     },
     {
       path: '/users/list',
