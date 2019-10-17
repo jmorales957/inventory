@@ -33,9 +33,8 @@
                     <div class="input-field col s6">
                         <select v-model="user_type">
                             <option value="" disabled selected>Selecciona una opcion</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="1">Cliente</option>
+                            <option value="2">Administrador</option>
                         </select>
                         <label>Tipo de Usuairo</label>
                     </div>

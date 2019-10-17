@@ -13,12 +13,14 @@ export default new Vuex.Store({
     },
     state: {
         errors: [],
-        success: ''
+        success: '',
+        isLogin: false
     },
 
     getters: {
         getSuccess: state => state.success,
         getErrors: state => state.errors,
+        getIsLogin: state => state.isLogin
     },
 
     actions: {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
         },
         addErrors({commit},errors) {
             commit('setErrors', errors)
+        },
+        addIsLogin({commit},isLogin){
+            commit('setIsLogin',isLogin)
         }
     },
 
@@ -43,6 +48,10 @@ export default new Vuex.Store({
                 state.errors.push(errors[i]);
 
             }
+        },
+
+        setIsLogin:(state,isLogin) => {
+            state.isLogin =isLogin
         }
     }
 

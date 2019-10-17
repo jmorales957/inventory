@@ -9,6 +9,7 @@ exports.store = async (req, res) => {
         user.password = req.body.password
         user.mail = req.body.mail
         user.active = req.body.active
+        user.user_type = req.body.user_type
         await user.save()
         const user_detail = new UserDetail()
         user_detail.user_id = user._id
@@ -55,9 +56,9 @@ exports.delete = async (req, res) => {
     try {
         const id = req.params.id
         const user = await User.findById(id)
-        console.log(user)
-        await UserDetail.findOneAndDelete({user_id: id})
-        await User.findOneAndDelete(id)
+        const user_detail = await UserDetail.findOne({user_id: id})
+        user_detail.remove()
+        user.remove()
         return res.status(200).json({
                 message: 'User removed',
                 success: true
