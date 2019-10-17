@@ -18,4 +18,5 @@ const UserDeatilSchema = mongoose.Schema({
     }
 
 })
+UserDeatilSchema.set('timestamps', true);
 module.exports = new mongoose.model('User_Detail', UserDeatilSchema )
