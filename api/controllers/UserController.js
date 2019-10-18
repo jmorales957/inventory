@@ -53,7 +53,8 @@ exports.delete = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const user = userService.updateUserById( req.params.id, req.body );
+        const user = await userService.updateUserById( req.params.id, req.body );
+        console.log(user)
         return res.status(200).json({
                 message: 'User updated',
                 success: true,
