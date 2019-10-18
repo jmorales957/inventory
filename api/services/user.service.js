@@ -10,17 +10,21 @@ module.exports = {
             const savedUser = await UserModel.create( data );
             const detailsAboutUser = await UserDetailsModel.create( { user_id: savedUser._id, ...data } );
             return {
+                message: 'User created',
                 success: true,
                 data: {
                     ...savedUser._doc,
                     ...detailsAboutUser._doc
-                }
+                },
+                error: null
             }
         }
         catch (error) {
             return {
+                message: 'Error creating user',
                 success: false,
-                error
+                error,
+                data: null
             }
         }
         

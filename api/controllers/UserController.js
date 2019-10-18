@@ -1,10 +1,12 @@
 const userService = require( '../services/user.service' );
 exports.store = async (req, res) => {
     try {
-        const savedUser = await userService.saveUser( req.body );
+        const result = await userService.saveUser( req.body );
         return res.status(200).json({
-            message: 'User added',
-            data: savedUser
+            message:  result.message,
+            success: result.success,
+            data: result.data,
+            error: result.error
         })
 
     } catch (error) {
