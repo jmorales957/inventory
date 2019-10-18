@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from "./store/store";
 import Home from './views/Home.vue'
 import CreteUserComponent from './components/CreteUserComponent.vue'
 import ListUsers from './components/ListUsersComponent.vue'
 import ListProduct from './components/products/ListProductComponent'
 import CreateProduct from './components/products/CreateProductComponent'
+import Login from './views/auth/LoginView'
 
 
 Vue.use(Router)
@@ -45,6 +47,16 @@ export default new Router({
       path: '/users/list',
       name: 'ListUsers',
       component: ListUsers
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: (to,from,next)=> {
+        store.commit('setIsLogin',true)
+        next()
+
+      }
     },
   ]
 })

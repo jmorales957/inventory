@@ -25,6 +25,9 @@ const userSchema = mongoose.Schema({
     active : {
         type: Boolean,
         default: true
+    },
+    user_type: {
+        type: Number
     }
 
 
