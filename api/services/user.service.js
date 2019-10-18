@@ -6,9 +6,24 @@ module.exports = {
         return results;
     },
     saveUser: async data => {
-        const savedUser = await UserModel.create( data );
-        const detailsAboutUser = await UserDetailsModel.create( { user_id: savedUser._id, ...data } );
-        return savedUser;
+        try {
+            const savedUser = await UserModel.create( data );
+            const detailsAboutUser = await UserDetailsModel.create( { user_id: savedUser._id, ...data } );
+            return {
+                success: true,
+                data: {
+                    ...savedUser._doc,
+                    ...detailsAboutUser._doc
+                }
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                error
+            }
+        }
+        
     },
     updateUserById: async userId => {
         await UserDetailsModel.findOneAndUpdate( { user_id: userId }, data );
