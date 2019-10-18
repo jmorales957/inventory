@@ -15,8 +15,10 @@ app.use('/public/products' ,express.static(__dirname +'/public/products'))
 app.use(express.json())
 app.use(cors())
 
-app.use('/api/v1/users',userRoutes)
-app.use('/api/v1/products',productsRoutes)
+// import main file for routes
+const routes = require( './routes/index.routes' );
+
+app.use('/api/v1', routes );
 
 const PORT = process.env.PORT || 3000;
 
