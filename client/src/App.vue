@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <nav-bar></nav-bar>
-        <side-nav></side-nav>
+        <nav-bar v-show="!getIsLogin"></nav-bar>
+        <side-nav  v-show="!getIsLogin"></side-nav>
         <div class="main">
             <vue-page-transition name="fade-in-right">
                 <router-view/>
@@ -10,6 +10,7 @@
     </div>
 </template>
 <script>
+    import {mapGetters, mapActions} from 'vuex'
     import Vue from 'vue'
     import VuePageTransition from 'vue-page-transition'
 
@@ -21,6 +22,14 @@
         components: {
             NavBar,
             SideNav
+        },
+        data(){
+            return {
+                login:true
+            }
+        },
+        computed: {
+            ...mapGetters(['getIsLogin'])
         }
     }
 </script>
