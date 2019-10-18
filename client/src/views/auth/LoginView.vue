@@ -1,14 +1,20 @@
 <template>
-    <login-form></login-form>
+    <div>
+        <message></message>
+        <login-form></login-form>
+    </div>
+
 </template>
 
 <script>
     import LoginForm from '../../components/auth/LoginForm'
+    import Message from '../../components/auth/Message'
     import {mapActions} from 'vuex'
     export default {
         name: "LoginView",
         components: {
-            LoginForm
+            LoginForm,
+            Message
         },
         methods:{
            ...mapActions(['addIsLogin'])
@@ -20,8 +26,8 @@
     }
 </script>
 
-<style scoped>
+<style scoped >
 body{
-    background: green !important;
+    background: #98bec8;
 }
 </style>
