@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
+const helmet  = require('helmet');
 
 const db = require('./database/database')
 const userRoutes = require('./routes/user')
 const productsRoutes = require('./routes/product')
 const path = require('path')
 const cors = require('cors')
-
+app.use( helmet() );
 app.use('/public/products' ,express.static(__dirname +'/public/products'))
 
 app.use(express.json())
