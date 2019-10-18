@@ -1,5 +1,6 @@
 <template>
-    <div id="login-page" class="row">
+
+    <div id="login-page" class="row" style="margin-top: 10em;">
         <div class="col s12 z-depth-6 card-panel">
             <form class="login-form">
                 <div class="row">
@@ -19,22 +20,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m12 l12  login-text">
-                        <input type="checkbox" id="remember-me" />
-                        <label for="remember-me">Remember me</label>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="input-field col s12">
-                        <a href="#" class="btn waves-effect waves-light col s12">Login</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6 m6 l6">
-                        <p class="margin medium-small"><a href="#">Register Now!</a></p>
-                    </div>
-                    <div class="input-field col s6 m6 l6">
-                        <p class="margin right-align medium-small"><a href="#">Forgot password?</a></p>
+                        <a href="#" class="btn blue waves-effect waves-light col s12">Login</a>
                     </div>
                 </div>
 
