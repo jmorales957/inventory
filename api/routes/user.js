@@ -1,11 +1,12 @@
 const router = require('express').Router()
 const UserConntroller = require('../controllers/UserController')
+const authMiddleware = require( '../middlewares/auth.middleware' );
 
-router.post('/',UserConntroller.store)
-router.get('/',UserConntroller.index)
-router.delete('/:id',UserConntroller.delete)
-router.put('/:id',UserConntroller.update)
-router.get('/:id',UserConntroller.findDetail)
+router.post('/',authMiddleware, UserConntroller.store)
+router.get('/',authMiddleware, UserConntroller.index)
+router.delete('/:id',authMiddleware, UserConntroller.delete)
+router.put('/:id',authMiddleware, UserConntroller.update)
+router.get('/:id',authMiddleware, UserConntroller.findDetail)
 
 
 

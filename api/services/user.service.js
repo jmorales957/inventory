@@ -1,3 +1,4 @@
+const authService = require( './auth.service' );
 const UserModel = require( '../models/user' );
 const UserDetailsModel = require( '../models/user_detail' );
 module.exports = {
@@ -59,5 +60,29 @@ module.exports = {
         return {
             ...userDetails
         }
+    },
+    verifyCredentials: async ( email, password ) =>  {
+        let data;
+        const userFound = await UserModel.findOne({ mail: req.body });
+        if( !userFound ) {
+            data['success'] = false;
+            data['message'] = 'Invalid credentials';
+        }
+        else {
+            const validPassword = await userFound.comparePassword( password );
+            if ( validPassword ) {
+                const token = await authService.generateToken( userFound );
+                data['success'] = true;
+                data['message'] = 'Logged in';
+                data['user'] = userFound;
+                data['token'] = token;
+            }
+            else {
+                data['success'] = false;
+                data['message'] = 'Invalid credentials';
+                
+            }
+        }
+        return data;
     }
 }

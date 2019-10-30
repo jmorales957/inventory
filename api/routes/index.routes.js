@@ -9,7 +9,7 @@ const authService = require('../services/auth')
 
 
 
-router.use( '/login',authRoutes  );
+router.use( '/auth',authRoutes  );
 router.use( '/users',userRoutes );
 router.use( '/products',productRoutes );
 router.use( '/sale',SaleRoutes );
