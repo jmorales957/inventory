@@ -1,6 +1,7 @@
 const Product = require('../models/product')
 const multer = require('multer')
 const path = require('path');
+const fs = require('fs')
 
 const Storage = multer.diskStorage({
     destination: './public/products/',
@@ -133,8 +134,23 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
+
         const id = req.params.id
-        await Product.findByIdAndDelete(id)
+        const product = await Product.findById(id)
+        const path = product.image_url
+
+        fs.access(path, err => {
+            if(!err) {
+                fs.unlink(path, function (err) {
+                    console.log(err)
+                })
+            } else {
+                console.log(err)
+            }
+        })
+
+        product.remove()
+
         return res.status(200).json({
             message: 'Product deleted',
             success: true,
