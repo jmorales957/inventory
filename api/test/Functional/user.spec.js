@@ -1,9 +1,15 @@
 const request = require( 'supertest' );
 const expect = require( 'chai' ).expect;
+const userModel = require( '../../models/user' );
 const app = require( '../../app' );
-
+const { generateToken } = require( '../../services/auth.service' );
 describe( 'Tests for user endpoints', function () {
     this.timeout( 0 );
+    let token;
+    beforeEach( async () => {
+        await userModel.remove({});
+        token = await generateToken( { _id: '1231asdasd123123' } );
+    } )
     it( 'should return a success message creating one user', () => {
         const userRequest = {
             name: 'gil', 
@@ -18,6 +24,7 @@ describe( 'Tests for user endpoints', function () {
         }
         request( app )
         .post('/api/v1/users')
+        .set({ 'auth-token': token })
         .send( userRequest )
         .expect( 200 )
         .end( ( err, res ) => {
@@ -39,6 +46,7 @@ describe( 'Tests for user endpoints', function () {
         }
         request( app )
         .post('/api/v1/users')
+        .set({ 'auth-token': token })
         .send( userRequest )
         .expect( 200 )
         .end( ( err, res ) => {
@@ -46,4 +54,7 @@ describe( 'Tests for user endpoints', function () {
             expect( res.body.success ).to.be.false;
         } )
     } );
+    after( async ( ) => {
+        await userModel.remove({});
+    })
 } );

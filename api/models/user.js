@@ -42,11 +42,14 @@ userSchema.pre( 'save', function( next ) {
     } )
 } );
 userSchema.methods.comparePassword = function( passwordToVerify ) {
-    bcrypt.compare( passwordToVerify, this.password, (err, matched) => {
-        if( err ) {
-            return false;
-        }
-        return matched;
+    return new Promise( (resolve, reject) => {
+        bcrypt.compare( passwordToVerify, this.password, (err, matched) => {
+            if( err ) {
+                reject( err )
+            }
+            resolve(matched);
+        } )
     } )
+    
 }
 module.exports = new mongoose.model('User',userSchema)

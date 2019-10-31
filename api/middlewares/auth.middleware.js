@@ -5,7 +5,7 @@ module.exports = function  (req,res,next)
     const token = req.header('auth-token')
 
     if(!token) {
-        res.status(401).json({
+        return res.status(401).json({
             errors: "Acceso denegado"
         })
     }
@@ -15,7 +15,7 @@ module.exports = function  (req,res,next)
         req.user = verified
         next()
     }catch (e) {
-        res.status(401).json({
+        return res.status(401).json({
             error: 'token invalido'
         })
     }
