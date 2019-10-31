@@ -1,0 +1,15 @@
+module.exports = {
+    diff: true,
+    extension: ['js'],
+    recursive: true,
+    opts: false,
+    package: './package.json',
+    reporter: 'spec',
+    slow: 75,
+    exit:true,  
+    timeout: 2000,
+    ui: 'bdd',
+    'watch-files': ['test/**/*.js'],
+    'full-trace': true,
+    'growl': true,
+  };
