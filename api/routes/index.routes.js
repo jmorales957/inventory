@@ -4,7 +4,7 @@ const authRoutes = require( './auth' );
 const userRoutes = require( './user' );
 const productRoutes = require( './product' );
 const SaleRoutes = require( './sale' );
-const authService = require('../services/auth')
+const authRoutes = require('./auth');
 
 
 

@@ -63,7 +63,7 @@ module.exports = {
     },
     verifyCredentials: async ( email, password ) =>  {
         let data;
-        const userFound = await UserModel.findOne({ mail: req.body });
+        const userFound = await UserModel.findOne({ mail: email });
         if( !userFound ) {
             data['success'] = false;
             data['message'] = 'Invalid credentials';
