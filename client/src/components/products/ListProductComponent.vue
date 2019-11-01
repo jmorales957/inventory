@@ -81,7 +81,7 @@
                         label: 'Imaen',
                         field: (row) => {
                             return `
-                                            <img class="circle responsive-img" src="http://localhost:3000/${row.image_url}">
+                                            <img class="circle responsive-img" width="25" height="25" src="http://localhost:3000/${row.image_url}">
                                            `
                         },
                         html: true
@@ -94,7 +94,7 @@
             ModalEditProdcutComponent,
         },
         computed: {
-            ...mapGetters(['allProducts', "getSuccess"])
+            ...mapGetters(['allProducts', "getSuccess",'getToken'])
         },
         methods: {
             ...mapActions(['allProductsList', 'addSuccess', 'editProduct', 'deleteProduct']),
@@ -106,8 +106,8 @@
         },
         mounted() {
             var self = this
-            this.allProductsList()
-            console.log(this.getSuccess)
+            console.log(this.allProductsList(this.getToken))
+            console.log(this.getToken)
             if (this.getSuccess != '') {
                 this.$notify({
                     group: 'success',

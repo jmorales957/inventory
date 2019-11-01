@@ -11,7 +11,7 @@ import Login from './views/auth/LoginView'
 
 Vue.use(Router)
 
-export default new Router({
+const rr =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -60,3 +60,22 @@ export default new Router({
     },
   ]
 })
+
+rr.beforeEach((to, from, next) => {
+  const token = store.getters.getToken
+  if(to.path != '/login') {
+    if(token!=null) {
+      console.log('There is a token, resume. (' + to.path + ')');
+      next();
+    } else {
+      console.log('There is no token, redirect to login. (' + to.path + ')');
+      next('login');
+    }
+  } else {
+    console.log('You\'re on the login page');
+    next(); // This is where it should have been
+  }
+  // next(); - This is in the wrong place
+});
+
+export default rr

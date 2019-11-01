@@ -62,7 +62,7 @@ module.exports = {
         }
     },
     verifyCredentials: async ( email, password ) =>  {
-        let data;
+        let data = {};
         const userFound = await UserModel.findOne({ mail: email });
         if( !userFound ) {
             data['success'] = false;

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
     export default {
         name: "LoginForm",
         data () {
@@ -54,8 +55,14 @@
                 })
 
                 const data = await response.json()
-                console.log(data)
-            }
+                if (data.success == true) {
+                    this.addToken(data.token)
+                    this.$router.push({name: 'ListProducts'})
+                    console.log(data)
+
+                }
+            },
+            ...mapActions(['addToken'])
         }
     }
 </script>

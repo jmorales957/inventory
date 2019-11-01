@@ -20,7 +20,7 @@
            ...mapActions(['addIsLogin'])
         },
         beforeRouteLeave(to,from,next){
-            this.adIsLogin(false)
+            this.addIsLogin(false)
             next()
         }
     }

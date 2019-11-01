@@ -10,11 +10,22 @@ const getters = {
 
 }
 const actions = {
-    async allProductsList({commit}) {
-        const response = await fetch('http://localhost:3000/api/v1/products')
+    async allProductsList({commit},token) {
+        const response = await fetch('http://localhost:3000/api/v1/products',{
+            headers:{
+                'auth-token': token
+
+            }
+        })
         const data = await response.json()
-        const product = data.data
-        commit('setProducts', product)
+        if (data.data) {
+            console.log(data.data)
+            const product = data.data
+            commit('setProducts', product)
+        } else {
+            commit('setToken',null)
+        }
+
     },
 
     async updateProduct({commit}, product) {
