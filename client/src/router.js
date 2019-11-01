@@ -2,13 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from "./store/store";
 import Home from './views/Home.vue'
-import CreteUserComponent from './components/CreteUserComponent.vue'
-import ListUsers from './components/ListUsersComponent.vue'
-import ListProduct from './components/products/ListProductComponent'
-import CreateProduct from './components/products/CreateProductComponent'
 import Login from './views/auth/LoginView'
 import Logout from './components/auth/logout'
-
+import auth from './middlewares/auth';
+import appRoutes from './routes/main.routes';
 
 Vue.use(Router)
 
@@ -30,38 +27,6 @@ const rr =  new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/users/create',
-      name: 'CreateUser',
-      component: CreteUserComponent,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/products/list',
-      name: 'ListProducts',
-      component: ListProduct,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/products/create',
-      name: 'CreateProduct',
-      component: CreateProduct,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/users/list',
-      name: 'ListUsers',
-      component: ListUsers,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login,
@@ -77,40 +42,11 @@ const rr =  new Router({
       path: '/logout',
       name: 'Logout',
       component: Logout,
-    }
+    },
+    ...appRoutes
   ]
 })
 
-rr.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!store.getters.loggedIn) {
-      console.log('There is no token, redirect to login. (' + to.path + ')');
-
-      next({
-        name: 'Login',
-      })
-    } else {
-      console.log('There is a token, resume. (' + to.path + ')');
-      next()
-    }
-  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (store.getters.loggedIn) {
-
-      next({
-        name: 'ListProducts',
-      })
-    } else {
-      next()
-    }
-  }
-  else {
-    console.log('You\'re on the login page');
-    next() // make sure to always call next()!
-  }
-});
+rr.beforeEach( auth );
 
 export default rr
