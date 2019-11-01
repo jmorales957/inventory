@@ -10,8 +10,12 @@ const getters = {
     editUSer: state => state.userEdit,
 }
 const actions = {
-    async fetchTodos({commit}) {
-        const response = await fetch('http://localhost:3000/api/v1/users');
+    async listUsers({commit}, token) {
+        const response = await fetch('http://localhost:3000/api/v1/users',{
+            headers: {
+                'auth-token': token
+            }
+        });
 
         const data = await response.json()
 

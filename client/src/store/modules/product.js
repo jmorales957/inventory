@@ -19,7 +19,6 @@ const actions = {
         })
         const data = await response.json()
         if (data.data) {
-            console.log(data.data)
             const product = data.data
             commit('setProducts', product)
         } else {

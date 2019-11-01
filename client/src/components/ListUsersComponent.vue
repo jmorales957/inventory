@@ -83,7 +83,7 @@
             DataTable
         },
         mounted() {
-            this.fetchTodos();
+            this.listUsers(this.getToken);
             const self = this
 
             document.addEventListener('DOMContentLoaded', function () {
@@ -97,7 +97,7 @@
             });
         },
         methods: {
-            ...mapActions(["fetchTodos", "deleteTodo", "updateTodo", 'editUser']),
+            ...mapActions(["listUsers", "deleteTodo", "updateTodo", 'editUser']),
             edit(user) {
                 this.editUser(user)
                 this.aux.open()
@@ -106,7 +106,7 @@
             }
         },
         computed: {
-            ...mapGetters(['allTodos', 'editUSer'])
+            ...mapGetters(['allTodos', 'editUSer',"getToken"])
         },
     }
 </script>

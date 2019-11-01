@@ -2,7 +2,7 @@
 
     <div id="login-page" class="row" style="margin-top: 10em;">
         <div class="col s12 z-depth-6 card-panel">
-            <form class="login-form" @submit.prevent="auth">
+            <form class="login-form" @submit.prevent="login">
                 <div class="row">
                 </div>
                 <div class="row">
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
     export default {
         name: "LoginForm",
         data () {
@@ -41,28 +40,15 @@
             }
         },
         methods: {
-            async auth () {
-
-                const response  = await  fetch('http://localhost:3000/api/v1/auth/login', {
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    method: 'post',
-                    body: JSON.stringify({
-                        email: this.email,
-                        password: this.password
-                    })
-                })
-
-                const data = await response.json()
-                if (data.success == true) {
-                    this.addToken(data.token)
-                    this.$router.push({name: 'ListProducts'})
-                    console.log(data)
-
-                }
-            },
-            ...mapActions(['addToken'])
+           login () {
+               this.$store.dispatch('addToken',{
+                   email: this.email,
+                   password: this.password
+               })
+                   .then(response => {
+                       this.$router.push({name: 'ListProducts'})
+                   })
+           }
         }
     }
 </script>

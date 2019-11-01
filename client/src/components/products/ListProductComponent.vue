@@ -106,8 +106,7 @@
         },
         mounted() {
             var self = this
-            console.log(this.allProductsList(this.getToken))
-            console.log(this.getToken)
+            this.allProductsList(this.getToken)
             if (this.getSuccess != '') {
                 this.$notify({
                     group: 'success',

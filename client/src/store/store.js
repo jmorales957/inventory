@@ -15,7 +15,7 @@ export default new Vuex.Store({
         errors: [],
         success: '',
         isLogin: false,
-        token: null
+        token: localStorage.getItem('token') || null
     },
 
     getters: {
@@ -23,6 +23,7 @@ export default new Vuex.Store({
         getErrors: state => state.errors,
         getIsLogin: state => state.isLogin,
         getToken: state => state.token,
+        loggedIn: state => state.token !== null,
     },
 
     actions: {
@@ -36,8 +37,28 @@ export default new Vuex.Store({
         addIsLogin({commit},isLogin){
             commit('setIsLogin',isLogin)
         },
-        addToken({commit},token) {
-            commit('setToken',token)
+        async addToken({commit},credentials) {
+            const response  = await  fetch('http://localhost:3000/api/v1/auth/login', {
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify({
+                    email: credentials.email,
+                    password: credentials.password
+                })
+            })
+            const data = await response.json()
+            console.log(data)
+            const token = data.token
+            localStorage.setItem('token',token)
+           commit('setToken',token)
+        },
+        destroyToken(context) {
+            if(context.getters.loggedIn) {
+                localStorage.removeItem('token')
+                context.commit('destroyToken')
+            }
         }
     },
 
@@ -61,6 +82,9 @@ export default new Vuex.Store({
 
         setToken:(state, token) =>{
             state.token = token
+        },
+        destroyToken: (state) => {
+            state.token = null
         }
     }
 
