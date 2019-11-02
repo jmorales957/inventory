@@ -81,7 +81,7 @@
                         label: 'Imaen',
                         field: (row) => {
                             return `
-                                            <img class="circle responsive-img" width="25" height="25" src="http://localhost:3000/${row.image_url}">
+                                            <img class="circle responsive-img" width="25" height="25" src="${process.env.VUE_APP_URI_SERVICE}/${row.image_url}">
                                            `
                         },
                         html: true

@@ -38,7 +38,7 @@ export default new Vuex.Store({
             commit('setIsLogin',isLogin)
         },
         async addToken({commit},credentials) {
-            const response  = await  fetch('http://localhost:3000/api/v1/auth/login', {
+            const response  = await  fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/auth/login`, {
                 headers: {
                     'Content-type': 'application/json'
                 },

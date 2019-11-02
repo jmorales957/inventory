@@ -11,7 +11,7 @@ const getters = {
 }
 const actions = {
     async listUsers({commit}, token) {
-        const response = await fetch('http://localhost:3000/api/v1/users',{
+        const response = await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/users`,{
             headers: {
                 'auth-token': token
             }
@@ -31,7 +31,7 @@ const actions = {
     },
     async deleteTodo({commit}, id) {
         const paramId = id
-        await axios.delete(`http://localhost:3000/api/v1/users/${id}`);
+        await axios.delete(`${process.env.VUE_APP_URI_SERVICE}/api/v1/users/${id}`);
         commit('removeTodo', paramId);
     },
     async filterTodos({commit}, e) {
@@ -49,11 +49,11 @@ const actions = {
     async updateTodo({commit}, user) {
 
         const response = await axios.put(
-            `http://localhost:3000/api/v1/users/${user._id}`, user);
+            `${process.env.VUE_APP_URI_SERVICE}/api/v1/users/${user._id}`, user);
         commit('updateUser', response.data.data);
     },
     async editUser({commit}, user) {
-        const response = await fetch(`http://localhost:3000/api/v1/users/${user._id}`)
+        const response = await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/users/${user._id}`)
         var data = await response.json()
         const full = {
 

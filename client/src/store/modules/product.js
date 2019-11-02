@@ -11,7 +11,7 @@ const getters = {
 }
 const actions = {
     async allProductsList({commit},token) {
-        const response = await fetch('http://localhost:3000/api/v1/products',{
+        const response = await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/products`,{
             headers:{
                 'auth-token': token
 
@@ -28,7 +28,7 @@ const actions = {
     },
 
     async updateProduct({commit}, product) {
-        const response = await fetch(`http://localhost:3000/api/v1/products/${product._id}`, {
+        const response = await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/products/${product._id}`, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -51,7 +51,7 @@ const actions = {
     },
 
     async deleteProduct({commit}, product) {
-        const response = await fetch(`http://localhost:3000/api/v1/products/${product._id}`,{
+        const response = await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/products/${product._id}`,{
             headers: {
                 'Content-Type': 'application/json',
             },

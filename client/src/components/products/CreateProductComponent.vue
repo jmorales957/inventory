@@ -88,7 +88,7 @@
                 formData.append('image_url', this.file)
 
 
-                const response = await fetch('http://localhost:3000/api/v1/products', {
+                const response = await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/products`, {
                     method: 'post',
                     body: formData
                 })

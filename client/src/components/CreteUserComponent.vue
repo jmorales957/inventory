@@ -93,7 +93,7 @@
         },
         methods: {
             async create() {
-                 await fetch('http://localhost:3000/api/v1/users', {
+                 await fetch(`${process.env.VUE_APP_URI_SERVICE}/api/v1/users`, {
                     headers: {
                         'Content-Type': 'application/json'
                     },
